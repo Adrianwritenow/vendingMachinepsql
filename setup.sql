@@ -13,7 +13,7 @@ CREATE TABLE item(
   item_id SERIAL PRIMARY KEY,
   cost FLOAT,
   name TEXT,
-  amount INTEGER,
+  amount INTEGER
   machine_id INTEGER REFERENCES machine
 );
 
@@ -44,7 +44,7 @@ VALUES
   (1.00,'CocaCola',5,(SELECT machine_id FROM machine WHERE location='Garage')),
   (1.00,'Water',10,(SELECT machine_id FROM machine WHERE location='Garage'));
 
-INSERT INTO purchase 
+INSERT INTO purchase
 VALUES('2017-08-12 19:10:25',(SELECT machine_id FROM machine WHERE location='Hallway'),(SELECT item_id FROM item WHERE name='Doritos'), 5.00, 4.00),
 ('2017-08-12 16:15:45',(SELECT machine_id FROM machine WHERE location='Garage'),(SELECT item_id FROM item WHERE name='CocaCola'),1.00,0),
 ('2017-08-11 09:10:46',(SELECT machine_id FROM machine WHERE location='Break Room'),(SELECT item_id FROM item WHERE name='Jack Daniels'), 10.00, 4.00);
