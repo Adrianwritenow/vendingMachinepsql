@@ -64,8 +64,9 @@ app.post('/machines/:machine_id/snackTime', function(request, response) {
       var machine_id = request.params.machine_id;
       var item_id = request.body.item_id;
 
-  client.query("SELECT cost from item WHERE item_id =$1", [request.body.item_id], function(request, dbResponse) {
+  client.query("SELECT cost from item WHERE item_id=$1", [request.body.item_id], function(request, dbResponse) {
       var price = dbResponse.rows[0].cost;
+      console.log(price," is the price query");
       var change = payment - price;
       console.log(price);
       console.log(payment);
@@ -80,7 +81,7 @@ app.post('/machines/:machine_id/snackTime', function(request, response) {
       } else {
         client.query('INSERT into purchase(purchase_time,machine_id,item_id, money_taken,change_given) VALUES($1, $2, $3, $4, $5)', [date, machine_id,item_id, payment,change],
             function(err, dbResponse) {
-  
+
               response.json({
                 status: 'ok'
               })
